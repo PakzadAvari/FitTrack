@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="silver">#484E68</color>
+    <color name="dark_red">#8B0000</color>
+    <color name="light_red">#FF6B6B</color>
+    <color name="gray">#808080</color>
+
+    <!-- Custom colors for Personal Info -->
+    <color name="background_start">#000000</color>
+    <color name="background_end">#8B0000</color>
+
+    <!-- Enhanced Button colors -->
+    <color name="button_selected">#FFFFFF</color>
+    <color name="button_unselected">#FFFFFF</color>
+    <color name="button_selected_text">#8B0000</color>
+    <color name="button_unselected_text">#333333</color>
+    <color name="button_text_color">#333333</color>
+    <color name="button_border_selected">#8B0000</color>
+    <color name="button_border_unselected">#CCCCCC</color>
+
+    <!-- Enhanced Spinner colors -->
+    <color name="spinner_text_color">#333333</color>
+    <color name="spinner_background">#FFFFFF</color>
+    <color name="spinner_border">#CCCCCC</color>
+
+    <!-- Enhanced Submit button colors -->
+    <color name="submit_button_text">#8B0000</color>
+    <color name="submit_button_background">#FFFFFF</color>
+    <color name="submit_button_border">#8B0000</color>
+
+    <color name="red_primary">#C41E3A</color>
+    <color name="red_dark">#A01829</color>
+    <color name="gray_dark">#333333</color>
+    <color name="gray_light">#CCCCCC</color>
+    <color name="transparent">#00000000</color>
+
+
+
+        <!-- Splash Screen Colors -->
+        <color name="splash_background">#000000</color>
+        <color name="logo_gold">#D4AF37</color>
+        <color name="logo_gold_light">#F4D03F</color>
+        <color name="text_secondary">#CCCCCC</color>
+
+        <!-- App Colors -->
+        <color name="primary">#D4AF37</color>
+        <color name="primary_dark">#B8941F</color>
+        <color name="accent">#F4D03F</color>
+        <color name="background">#FFFFFF</color>
+        <color name="surface">#F5F5F5</color>
+        <color name="text_primary">#212121</color>
+        <color name="text_secondary_light">#757575</color>
+
+
+
+
+</resources>
