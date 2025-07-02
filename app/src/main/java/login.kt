@@ -1,17 +1,24 @@
 package com.example.fitnessapp
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.launch
 
 class login : AppCompatActivity() {
+
+    // Firebase Services
+    private lateinit var authService: FirebaseAuthService
+    private lateinit var firestoreService: FirestoreService
 
     // UI Components
     private lateinit var emailInputLayout: TextInputLayout
@@ -20,16 +27,31 @@ class login : AppCompatActivity() {
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var loginButton: MaterialButton
     private lateinit var signupText: android.widget.TextView
+    private lateinit var progressIndicator: CircularProgressIndicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        // Initialize Firebase services
+        initializeFirebase()
+
+        // Check if user is already logged in
+        if (authService.getCurrentUser() != null) {
+            navigateToDashboard()
+            return
+        }
 
         // Initialize views
         initViews()
 
         // Set click listeners
         setupClickListeners()
+    }
+
+    private fun initializeFirebase() {
+        authService = FirebaseAuthService()
+        firestoreService = FirestoreService()
     }
 
     private fun initViews() {
@@ -40,6 +62,13 @@ class login : AppCompatActivity() {
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.loginButton)
         signupText = findViewById(R.id.signupText)
+
+        // Add progress indicator if not in layout
+        try {
+            progressIndicator = findViewById(R.id.progressIndicator)
+        } catch (e: Exception) {
+            // Progress indicator not found in layout, create programmatically if needed
+        }
     }
 
     private fun setupClickListeners() {
@@ -81,11 +110,26 @@ class login : AppCompatActivity() {
         }
 
         // Show loading state
-        loginButton.isEnabled = false
-        loginButton.text = "Logging in..."
+        showLoading(true)
 
-        // Simulate login process (replace with actual authentication logic)
-        simulateLogin(email, password)
+        // Perform Firebase authentication
+        lifecycleScope.launch {
+            try {
+                val result = authService.signInWithEmailAndPassword(email, password)
+
+                result.onSuccess { user ->
+                    // Login successful
+                    onLoginSuccess(user.uid)
+                }.onFailure { exception ->
+                    // Login failed
+                    onLoginFailure(exception.message ?: "Login failed")
+                }
+            } catch (e: Exception) {
+                onLoginFailure(e.message ?: "An unexpected error occurred")
+            } finally {
+                showLoading(false)
+            }
+        }
     }
 
     private fun validateInputs(email: String, password: String): Boolean {
@@ -112,67 +156,64 @@ class login : AppCompatActivity() {
         return isValid
     }
 
-    private fun simulateLogin(email: String, password: String) {
-        // Simulate network delay
-        android.os.Handler(mainLooper).postDelayed({
-            // Reset button state
-            loginButton.isEnabled = true
-            loginButton.text = "Login"
-
-            // For demo purposes, accept any valid email/password combination
-            // Replace this with actual authentication logic
-            if (isValidCredentials(email, password)) {
-                onLoginSuccess()
-            } else {
-                onLoginFailure()
-            }
-        }, 2000) // 2 second delay to simulate network request
-    }
-
-    private fun isValidCredentials(email: String, password: String): Boolean {
-        // Demo logic - replace with actual authentication
-        // For demo, accept any email with password "password123"
-        return password == "password123"
-    }
-
-    private fun onLoginSuccess() {
+    private fun onLoginSuccess(userId: String) {
         Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
 
-        // Navigate to main activity or dashboard
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish()
+        // Navigate to dashboard
+        navigateToDashboard()
     }
 
-    private fun onLoginFailure() {
-        Toast.makeText(this, "Invalid email or password", Toast.LENGTH_LONG).show()
+    private fun onLoginFailure(errorMessage: String) {
+        Toast.makeText(this, "Login failed: $errorMessage", Toast.LENGTH_LONG).show()
 
         // Clear password field for security
         passwordEditText.text?.clear()
         passwordEditText.requestFocus()
     }
 
+    private fun navigateToDashboard() {
+        val intent = Intent(this, Dashboard::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+
     private fun navigateToSignup() {
-        // Navigate to signup activity
         val intent = Intent(this, signup::class.java)
         startActivity(intent)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            loginButton.isEnabled = false
+            loginButton.text = "Logging in..."
+            try {
+                progressIndicator.visibility = View.VISIBLE
+            } catch (e: Exception) {
+                // Progress indicator not available
+            }
+        } else {
+            loginButton.isEnabled = true
+            loginButton.text = "Login"
+            try {
+                progressIndicator.visibility = View.GONE
+            } catch (e: Exception) {
+                // Progress indicator not available
+            }
+        }
     }
 
     // Handle back button press
     override fun onBackPressed() {
         super.onBackPressed()
-        // You can add custom back button behavior here if needed
+        finishAffinity() // Close the app when back is pressed on login
     }
 
-    // Save user preferences or handle activity lifecycle
-    override fun onPause() {
-        super.onPause()
-        // Save any necessary data
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // Restore any necessary data or refresh UI
+    override fun onStart() {
+        super.onStart()
+        // Check if user is already authenticated
+        authService.getCurrentUser()?.let {
+            navigateToDashboard()
+        }
     }
 }

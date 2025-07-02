@@ -24,13 +24,11 @@
             </intent-filter>
         </activity>
 
-        <!-- Add this missing activity -->
         <activity
             android:name=".access"
             android:exported="false"
             android:screenOrientation="portrait" />
 
-        <!-- Add these if you have signup and login activities -->
         <activity
             android:name=".signup"
             android:exported="false"
@@ -40,6 +38,12 @@
             android:name=".login"
             android:exported="false"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Dashboard"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        
 
         <activity
             android:name=".MainActivity"

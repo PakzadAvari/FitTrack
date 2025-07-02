@@ -4,14 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.launch
 
 class signup : AppCompatActivity() {
 
+    // Firebase Services
+    private lateinit var authService: FirebaseAuthService
+    private lateinit var firestoreService: FirestoreService
+
+    // UI Components
     private lateinit var etName: TextInputEditText
     private lateinit var etPhone: TextInputEditText
     private lateinit var etEmail: TextInputEditText
@@ -19,13 +28,28 @@ class signup : AppCompatActivity() {
     private lateinit var etConfirmPassword: TextInputEditText
     private lateinit var btnSignUp: Button
     private lateinit var tvLogin: TextView
+    private lateinit var progressIndicator: CircularProgressIndicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+        // Initialize Firebase services
+        initializeFirebase()
+
+        // Check if user is already logged in
+        if (authService.getCurrentUser() != null) {
+            navigateToDashboard()
+            return
+        }
+
         initializeViews()
         setupClickListeners()
+    }
+
+    private fun initializeFirebase() {
+        authService = FirebaseAuthService()
+        firestoreService = FirestoreService()
     }
 
     private fun initializeViews() {
@@ -36,6 +60,13 @@ class signup : AppCompatActivity() {
         etConfirmPassword = findViewById(R.id.etConfirmPassword)
         btnSignUp = findViewById(R.id.btnSignUp)
         tvLogin = findViewById(R.id.tvLogin)
+
+        // Add progress indicator if not in layout
+        try {
+            progressIndicator = findViewById(R.id.progressIndicator)
+        } catch (e: Exception) {
+            // Progress indicator not found in layout
+        }
     }
 
     private fun setupClickListeners() {
@@ -60,6 +91,12 @@ class signup : AppCompatActivity() {
         // Validate name
         if (TextUtils.isEmpty(name)) {
             etName.error = "Please enter your name"
+            etName.requestFocus()
+            return false
+        }
+
+        if (name.length < 2) {
+            etName.error = "Name must be at least 2 characters"
             etName.requestFocus()
             return false
         }
@@ -103,6 +140,13 @@ class signup : AppCompatActivity() {
             return false
         }
 
+        // Check password strength
+        if (!isPasswordStrong(password)) {
+            etPassword.error = "Password must contain at least one number and one letter"
+            etPassword.requestFocus()
+            return false
+        }
+
         // Validate confirm password
         if (TextUtils.isEmpty(confirmPassword)) {
             etConfirmPassword.error = "Please confirm your password"
@@ -119,38 +163,117 @@ class signup : AppCompatActivity() {
         return true
     }
 
+    private fun isPasswordStrong(password: String): Boolean {
+        val hasLetter = password.any { it.isLetter() }
+        val hasDigit = password.any { it.isDigit() }
+        return hasLetter && hasDigit
+    }
+
     private fun performSignUp() {
         val name = etName.text.toString().trim()
         val phone = etPhone.text.toString().trim()
         val email = etEmail.text.toString().trim()
         val password = etPassword.text.toString()
 
-        // TODO: Implement your signup logic here
-        // This could involve:
-        // - API call to your backend
-        // - Firebase Authentication
-        // - Database operations
-        // - Shared preferences for local storage
+        // Show loading state
+        showLoading(true)
 
-        // For now, we'll just show a success message
-        Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
+        // Perform Firebase authentication
+        lifecycleScope.launch {
+            try {
+                // Create Firebase user account
+                val result = authService.createUserWithEmailAndPassword(email, password)
 
-        // Navigate to main activity or login screen
-        // navigateToMainActivity() or navigateToLogin()
+                result.onSuccess { user ->
+                    // Account created successfully, now create user profile
+                    createUserProfile(user.uid, name, phone, email)
+                }.onFailure { exception ->
+                    // Account creation failed
+                    onSignUpFailure(exception.message ?: "Account creation failed")
+                }
+            } catch (e: Exception) {
+                onSignUpFailure(e.message ?: "An unexpected error occurred")
+            }
+        }
+    }
+
+    private suspend fun createUserProfile(userId: String, name: String, phone: String, email: String) {
+        try {
+            // Create user profile object
+            val userProfile = UserProfile(
+                uid = userId,
+                displayName = name,
+                email = email,
+                createdAt = System.currentTimeMillis()
+            )
+
+            // Save user profile to Firestore
+            val result = firestoreService.createUserProfile(userProfile)
+
+            result.onSuccess {
+                // Profile created successfully
+                onSignUpSuccess()
+            }.onFailure { exception ->
+                // Profile creation failed, but Firebase account was created
+                // You might want to handle this case differently
+                onSignUpFailure("Account created but profile setup failed: ${exception.message}")
+            }
+        } catch (e: Exception) {
+            onSignUpFailure("Profile creation failed: ${e.message}")
+        } finally {
+            showLoading(false)
+        }
+    }
+
+    private fun onSignUpSuccess() {
+        Toast.makeText(this, "Account created successfully! Welcome to FitnessApp!", Toast.LENGTH_LONG).show()
+
+        // Navigate to dashboard
+        navigateToDashboard()
+    }
+
+    private fun onSignUpFailure(errorMessage: String) {
+        showLoading(false)
+
+        // Show error message
+        Toast.makeText(this, "Sign up failed: $errorMessage", Toast.LENGTH_LONG).show()
+
+        // Clear password fields for security
+        etPassword.text?.clear()
+        etConfirmPassword.text?.clear()
     }
 
     private fun navigateToLogin() {
-        // Navigate to login activity
         val intent = Intent(this, login::class.java)
         startActivity(intent)
-        finish() // Optional: finish this activity
+        finish()
     }
 
-    private fun navigateToMainActivity() {
-        // Navigate to main activity after successful signup
-        val intent = Intent(this, MainActivity::class.java)
+    private fun navigateToDashboard() {
+        val intent = Intent(this, Dashboard::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            btnSignUp.isEnabled = false
+            btnSignUp.text = "Creating Account..."
+            try {
+                progressIndicator.visibility = View.VISIBLE
+            } catch (e: Exception) {
+                // Progress indicator not available
+            }
+        } else {
+            btnSignUp.isEnabled = true
+            btnSignUp.text = "Sign Up"
+            try {
+                progressIndicator.visibility = View.GONE
+            } catch (e: Exception) {
+                // Progress indicator not available
+            }
+        }
     }
 
     // Helper method to clear all input fields
@@ -160,5 +283,13 @@ class signup : AppCompatActivity() {
         etEmail.text?.clear()
         etPassword.text?.clear()
         etConfirmPassword.text?.clear()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Check if user is already authenticated
+        authService.getCurrentUser()?.let {
+            navigateToDashboard()
+        }
     }
 }
