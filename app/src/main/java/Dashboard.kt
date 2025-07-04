@@ -1,13 +1,3 @@
-// First, add these dependencies to your app/build.gradle file:
-/*
-dependencies {
-    implementation 'com.google.firebase:firebase-auth-ktx:22.3.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.9.1'
-    implementation 'com.google.firebase:firebase-analytics-ktx:21.5.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
-}
-*/
-
 package com.example.fitnessapp
 
 import android.content.Intent

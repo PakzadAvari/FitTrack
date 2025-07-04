@@ -38,10 +38,10 @@ class signup : AppCompatActivity() {
         initializeFirebase()
 
         // Check if user is already logged in
-        if (authService.getCurrentUser() != null) {
-            navigateToDashboard()
-            return
-        }
+//        if (authService.getCurrentUser() != null) {
+//            navigateToDashboard()
+//            return
+//        }
 
         initializeViews()
         setupClickListeners()
@@ -285,11 +285,11 @@ class signup : AppCompatActivity() {
         etConfirmPassword.text?.clear()
     }
 
-    override fun onStart() {
-        super.onStart()
-        // Check if user is already authenticated
-        authService.getCurrentUser()?.let {
-            navigateToDashboard()
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        // Check if user is already authenticated
+//        authService.getCurrentUser()?.let {
+//            navigateToDashboard()
+//        }
+//    }
 }

@@ -38,9 +38,8 @@ class loading_screen : AppCompatActivity() {
         setContentView(R.layout.activity_loading_screen)
 
         // Hide system UI for immersive experience
-        hideSystemUI()
-
         initViews()
+        hideSystemUI()
         startAnimations()
     }
 

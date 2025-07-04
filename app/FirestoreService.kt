@@ -27,10 +27,12 @@ class FirestoreService {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     // User Management
-    suspend fun createUserProfile(userId: String, userName: String): Result<Unit> {
+    suspend fun createUserProfile(userId: String, userName: String, email: String, phone: String): Result<Unit> {
         return try {
             val userProfile: Map<String, Any> = mapOf(
                 "name" to userName,
+                "email" to email,
+                "phoneNumber" to phone,
                 "joinDate" to System.currentTimeMillis(),
                 "stats" to mapOf(
                     "totalWorkouts" to 0,
