@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.fitnessapp.FirebaseAuthService
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
@@ -63,12 +64,8 @@ class login : AppCompatActivity() {
         loginButton = findViewById(R.id.loginButton)
         signupText = findViewById(R.id.signupText)
 
-        // Add progress indicator if not in layout
-        try {
-            progressIndicator = findViewById(R.id.progressIndicator)
-        } catch (e: Exception) {
-            // Progress indicator not found in layout, create programmatically if needed
-        }
+        // Progress indicator is optional - not in your layout
+        // Remove this or add a CircularProgressIndicator to your layout
     }
 
     private fun setupClickListeners() {

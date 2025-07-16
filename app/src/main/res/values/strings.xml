@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">FitnessApp</string>
+    <string name="progress">Progress</string>
+    <string name="back_button">Back</string>
+    <string name="overall_stats">Overall Stats</string>
+    <string name="total_workouts">Total Workouts</string>
+    <string name="total_calories">Total Calories</string>
+    <string name="current_streak">Current Streak</string>
+    <string name="this_week">This Week</string>
+    <string name="workouts">Workouts</string>
+    <string name="calories">Calories</string>
+    <string name="workout_history">Workout History</string>
 </resources>

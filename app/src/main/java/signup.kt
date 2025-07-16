@@ -10,9 +10,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.fitnessapp.com.example.fitnessapp.FirebaseAuthService
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
+import com.example.fitnessapp.services.FirestoreService
 
 class signup : AppCompatActivity() {
 
@@ -199,16 +201,8 @@ class signup : AppCompatActivity() {
 
     private suspend fun createUserProfile(userId: String, name: String, phone: String, email: String) {
         try {
-            // Create user profile object
-            val userProfile = UserProfile(
-                uid = userId,
-                displayName = name,
-                email = email,
-                createdAt = System.currentTimeMillis()
-            )
-
-            // Save user profile to Firestore
-            val result = firestoreService.createUserProfile(userProfile)
+            // Save user profile to Firestore with correct parameter order
+            val result = firestoreService.createUserProfile(userId, name, email, phone)
 
             result.onSuccess {
                 // Profile created successfully
@@ -285,11 +279,11 @@ class signup : AppCompatActivity() {
         etConfirmPassword.text?.clear()
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//        // Check if user is already authenticated
-//        authService.getCurrentUser()?.let {
-//            navigateToDashboard()
-//        }
-//    }
+    override fun onStart() {
+        super.onStart()
+        // Check if user is already authenticated
+        authService.getCurrentUser()?.let {
+            navigateToDashboard()
+        }
+    }
 }

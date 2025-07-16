@@ -7,6 +7,13 @@
     <color name="light_red">#FF6B6B</color>
     <color name="gray">#808080</color>
 
+    <color name="gym_red">#D32F2F</color>
+    <color name="gym_red_dark">#B71C1C</color>
+    <color name="gym_red_light">#FFCDD2</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="input_background">#FFFFFF</color>
+    <color name="card_background1">#1E1E1E</color>
+
     <!-- Custom colors for Personal Info -->
     <color name="background_start">#000000</color>
     <color name="background_end">#8B0000</color>
@@ -53,7 +60,97 @@
         <color name="text_primary">#212121</color>
         <color name="text_secondary_light">#757575</color>
 
+    <color name="primary_color">#2196F3</color>
+    <color name="background_color">#F5F5F5</color>
+    <color name="text_secondary1">#757575</color>
+    <color name="divider_color">#E0E0E0</color>
+    <color name="white_70">#B3FFFFFF</color>
 
+    <color name="accent_color">#FF5722</color>
+    <color name="success_color">#4CAF50</color>
+    <color name="background_primary">#F5F5F5</color>
+    <color name="card_background">#FFFFFF</color>
+
+
+
+    <color name="ocean_blue">#2196F3</color>
+    <color name="ocean_blue_dark">#1976D2</color>
+    <color name="sunset_orange">#FF9800</color>
+    <color name="sunset_red">#FF5722</color>
+    <color name="forest_green">#4CAF50</color>
+    <color name="snow_white">#FFFFFF</color>
+    <color name="snow_white_70">#B3FFFFFF</color>
+    <color name="paper_white">#FFFFFF</color>
+    <color name="ink_black">#212121</color>
+    <color name="pencil_gray">#757575</color>
+    <color name="border_light_gray">#E0E0E0</color>
+
+        <!-- Primary Colors -->
+        <color name="deep_ocean">#1565C0</color>
+        <color name="light_ocean">#42A5F5</color>
+
+        <!-- Secondary Colors -->
+        <color name="warm_orange">#FF8A50</color>
+        <color name="coral_pink">#FF7043</color>
+
+        <!-- Accent Colors -->
+        <color name="emerald_green">#66BB6A</color>
+
+        <!-- Neutral Colors -->
+        <color name="storm_gray1">#37474F</color>
+        <color name="silver_gray">#90A4AE</color>
+        <color name="cloud_gray">#ECEFF1</color>
+        <color name="pearl_white">#FAFAFA</color>
+
+        <!-- Text Colors -->
+        <color name="midnight_black">#212121</color>
+        <color name="charcoal_gray">#424242</color>
+        <color name="slate_gray">#757575</color>
+
+        <!-- Status Colors -->
+        <color name="ruby_red">#E53935</color>
+        <color name="amber_yellow">#FFB300</color>
+        <color name="sapphire_blue">#1E88E5</color>
+
+        <!-- Background Colors -->
+        <color name="background_secondary">#FFFFFF</color>
+        <color name="background_accent">#E3F2FD</color>
+
+        <!-- Transparent Colors -->
+        <color name="transparent_black">#80000000</color>
+        <color name="transparent_white">#80FFFFFF</color>
+
+    <!-- Primary Colors -->
+    <color name="midnight_blue">#1A1A2E</color>
+    <color name="ocean_teal">#00D4AA</color>
+    <color name="coral_red">#FF6B6B</color>
+
+    <!-- Secondary Colors -->
+    <color name="storm_gray">#2D2D44</color>
+    <color name="charcoal_black">#000000</color>
+
+    <!-- Accent Colors -->
+
+    <color name="lavender_purple">#8B5CF6</color>
+    <color name="mint_green">#10B981</color>
+
+    <!-- Background Colors -->
+    <color name="deep_navy">#16213E</color>
+    <color name="slate_blue">#3B4A6B</color>
+    <color name="ash_gray">#4A5568</color>
+
+    <!-- Text Colors -->
+    <color name="mist_gray">#9CA3AF</color>
+    <color name="shadow_gray">#6B7280</color>
+
+    <!-- Status Colors -->
+    <color name="emerald_success">#059669</color>
+    <color name="amber_warning">#D97706</color>
+    <color name="crimson_error">#DC2626</color>
+
+    <!-- Transparency -->
+    <color name="semi_transparent_black">#80000000</color>
+    <color name="semi_transparent_white">#80FFFFFF</color>
 
 
 </resources>

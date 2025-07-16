@@ -23,6 +23,14 @@ data class UserStats(
     val lastWorkoutDate: Long = 0
 )
 
+data class UserProfile(
+    val userId: String,
+    val name: String,
+    val email: String,
+    val phone: String,
+    val joinDate: Long = System.currentTimeMillis()
+)
+
 class FirestoreService {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
@@ -47,6 +55,31 @@ class FirestoreService {
             Result.failure(e)
         }
     }
+//    private suspend fun createUserProfile(userId: String, name: String, phone: String, email: String) {
+//        try {
+//            // Check if user is authenticated
+//            val currentUser = authService.getCurrentUser()
+//            if (currentUser == null) {
+//                onSignUpFailure("User not authenticated")
+//                return
+//            }
+//
+//            // Call the FirestoreService method with correct parameters
+//            val result = firestoreService.createUserProfile(userId, name, email, phone)
+//
+//            result.onSuccess {
+//                // Profile created successfully
+//                onSignUpSuccess()
+//            }.onFailure { exception ->
+//                // Profile creation failed, but Firebase account was created
+//                onSignUpFailure("Account created but profile setup failed: ${exception.message}")
+//            }
+//        } catch (e: Exception) {
+//            onSignUpFailure("Profile creation failed: ${e.message}")
+//        } finally {
+//            showLoading(false)
+//        }
+//    }
 
     // Workout Operations
     suspend fun saveWorkout(userId: String, workout: WorkoutData): Result<String> {

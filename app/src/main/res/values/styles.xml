@@ -2,9 +2,13 @@
 <resources>
     <!-- Base application theme -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/ocean_blue</item>
+        <item name="colorPrimaryDark">@color/deep_ocean</item>
+        <item name="colorAccent">@color/sunset_orange</item>
+        <item name="android:windowBackground">@color/background_primary</item>
+        <item name="android:textColorPrimary">@color/midnight_black</item>
+        <item name="android:textColorSecondary">@color/charcoal_gray</item>
     </style>
 
     <!-- Splash Screen Theme -->
@@ -18,5 +22,88 @@
         <item name="android:navigationBarColor">@color/splash_background</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
+
+
+
+
+        <!-- Theme without ActionBar -->
+        <style name="AppTheme.NoActionBar">
+            <item name="windowActionBar">false</item>
+            <item name="windowNoTitle">true</item>
+        </style>
+
+        <!-- Dialog Theme -->
+        <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+            <item name="colorPrimary">@color/ocean_blue</item>
+            <item name="colorAccent">@color/sunset_orange</item>
+            <item name="android:textColorPrimary">@color/midnight_black</item>
+        </style>
+
+        <!-- Button Styles -->
+        <style name="ButtonPrimary" parent="Widget.AppCompat.Button">
+            <item name="android:background">@drawable/btn_primary</item>
+            <item name="android:textColor">@color/snow_white</item>
+            <item name="android:textSize">16sp</item>
+            <item name="android:textStyle">bold</item>
+            <item name="android:elevation">2dp</item>
+            <item name="android:stateListAnimator">@null</item>
+        </style>
+
+        <style name="ButtonSuccess" parent="Widget.AppCompat.Button">
+            <item name="android:background">@drawable/btn_success</item>
+            <item name="android:textColor">@color/snow_white</item>
+            <item name="android:textSize">16sp</item>
+            <item name="android:textStyle">bold</item>
+            <item name="android:elevation">2dp</item>
+            <item name="android:stateListAnimator">@null</item>
+        </style>
+
+        <style name="ButtonOutline" parent="Widget.AppCompat.Button">
+            <item name="android:background">@drawable/btn_outline</item>
+            <item name="android:textColor">@color/ocean_blue</item>
+            <item name="android:textSize">12sp</item>
+            <item name="android:textStyle">bold</item>
+            <item name="android:elevation">1dp</item>
+            <item name="android:stateListAnimator">@null</item>
+        </style>
+
+        <!-- Text Styles -->
+        <style name="TextHeadline" parent="TextAppearance.AppCompat.Headline">
+            <item name="android:textColor">@color/midnight_black</item>
+            <item name="android:textSize">24sp</item>
+            <item name="android:textStyle">bold</item>
+        </style>
+
+        <style name="TextTitle" parent="TextAppearance.AppCompat.Title">
+            <item name="android:textColor">@color/midnight_black</item>
+            <item name="android:textSize">20sp</item>
+            <item name="android:textStyle">bold</item>
+        </style>
+
+        <style name="TextSubtitle" parent="TextAppearance.AppCompat.Subhead">
+            <item name="android:textColor">@color/charcoal_gray</item>
+            <item name="android:textSize">16sp</item>
+        </style>
+
+        <style name="TextBody" parent="TextAppearance.AppCompat.Body1">
+            <item name="android:textColor">@color/charcoal_gray</item>
+            <item name="android:textSize">14sp</item>
+        </style>
+
+        <style name="TextCaption" parent="TextAppearance.AppCompat.Caption">
+            <item name="android:textColor">@color/slate_gray</item>
+            <item name="android:textSize">12sp</item>
+        </style>
+
+        <!-- Card Styles -->
+        <style name="CardViewStyle" parent="CardView">
+            <item name="cardCornerRadius">12dp</item>
+            <item name="cardElevation">3dp</item>
+            <item name="cardBackgroundColor">@color/background_secondary</item>
+            <item name="cardUseCompatPadding">true</item>
+        </style>
+
+
+
 
 </resources>

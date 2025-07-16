@@ -43,6 +43,36 @@
             android:name=".Dashboard"
             android:exported="false"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false"
+            android:parentActivityName=".Dashboard"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ProgressActivity"
+            android:exported="false"
+            android:parentActivityName=".Dashboard"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ScheduleActivity"
+            android:exported="false"
+            android:parentActivityName=".Dashboard"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".WorkoutActivity"
+            android:exported="false"
+            android:parentActivityName=".Dashboard"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".WorkoutCategoryActivity"
+            android:exported="false"
+            android:parentActivityName=".Dashboard"
+            android:screenOrientation="portrait" />
         
 
         <activity

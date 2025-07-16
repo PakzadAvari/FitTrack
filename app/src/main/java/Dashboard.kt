@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
+import com.example.fitnessapp.FirebaseAuthService
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
@@ -18,7 +19,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.google.firebase.Timestamp
 
 // Data classes
 data class UserStats(
@@ -579,6 +579,8 @@ class Dashboard : AppCompatActivity() {
         }
     }
 
+
+
     private fun startTodayWorkout() {
         try {
             val intent = Intent(this, WorkoutActivity::class.java).apply {
@@ -607,7 +609,7 @@ class Dashboard : AppCompatActivity() {
 
     private fun redirectToLogin() {
         try {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, login::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
@@ -760,11 +762,5 @@ class Dashboard : AppCompatActivity() {
         redirectToLogin()
     }
 
-    // Placeholder activity classes - you'll need to implement these
-    class ProgressActivity : AppCompatActivity()
-    class ScheduleActivity : AppCompatActivity()
-    class ProfileActivity : AppCompatActivity()
-    class WorkoutActivity : AppCompatActivity()
-    class WorkoutCategoryActivity : AppCompatActivity()
-    class LoginActivity : AppCompatActivity()
+
 }
