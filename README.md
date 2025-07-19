@@ -50,7 +50,11 @@ FitTrack is a comprehensive Android fitness application designed to help users o
 
 | Home Screen | Workout Categories | Progress Tracking | Weekly Schedule |
 |-------------|-------------------|-------------------|-----------------|
-| ![Home](screenshot1.jpg) | ![Categories](screenshot2.jpg) | ![Progress](screenshot3.jpg) | ![Schedule](screenshot4.jpg) |
+| <img width="699" height="1568" alt="image" src="https://github.com/user-attachments/assets/a6a6e537-6cb3-48fb-8927-4a411ea37aaa" />
+ | <img width="699" height="1568" alt="image" src="https://github.com/user-attachments/assets/8e17295c-c583-4a78-ab0d-d02b90c5b2ee" />
+ | <img width="699" height="1568" alt="image" src="https://github.com/user-attachments/assets/ed70bf8f-25b8-4874-8e44-2d5f4258330f" />
+ | <img width="699" height="1568" alt="image" src="https://github.com/user-attachments/assets/31653aec-fb7e-4ecc-97ea-f2f624ec1bcf" />
+ |
 
 *Screenshots showcase the intuitive user interface and comprehensive feature set*
 
