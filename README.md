@@ -151,9 +151,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support & Contact
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/fittrack/issues)
+- **Issues**: [GitHub Issues](https://github.com/PakzadAvari/FitTrack.git)
 - **Email**: fittrack.support@email.com
-- **Documentation**: [Wiki](https://github.com/yourusername/fittrack/wiki)
+- **Documentation**: [Wiki](https://github.com/PakzadAvari/FitTrack/blob/ecce1d0b14ffe3750efad61ad48c051253789d97/README.md)
 
 ## 🎯 Roadmap
 
@@ -187,8 +187,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Ready to transform your fitness journey? Download FitTrack and get stronger every day!**
 
 [![Download on Google Play](https://img.shields.io/badge/Google%20Play-Coming%20Soon-blue)](https://play.google.com/store)
-[![GitHub Release](https://img.shields.io/badge/GitHub-v1.0.0-green)](https://github.com/yourusername/fittrack/releases)
+[![GitHub Release](https://img.shields.io/badge/GitHub-v1.0.0-green)](https://github.com/PakzadAvari/FitTrack.git)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
-[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com/yourusername/fittrack/actions)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com/PakzadAvari/FitTrack.git)
 
 *Made with ❤️ for the fitness community*
